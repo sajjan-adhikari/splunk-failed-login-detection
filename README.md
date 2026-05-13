@@ -1,114 +1,79 @@
-##### **# Failed Login Detection using Splunk**
+#  Failed Login Detection using Splunk
 
-##### 
+##  Overview
+This project demonstrates how to detect suspicious login activity using Splunk Enterprise by analyzing SSH authentication logs.  
+It focuses on identifying brute-force attacks, password spraying, and unusual authentication behavior.
 
-##### \## Overview
+The project simulates a basic SOC (Security Operations Center) monitoring workflow.
 
-This project demonstrates detection of suspicious login activity using Splunk Enterprise by analyzing SSH authentication logs.
+---
 
+##  Objectives
+- Detect multiple failed login attempts
+- Identify brute-force attack patterns
+- Analyze targeted usernames
+- Visualize attack trends using dashboards
+- Create alerting rules for suspicious activity
 
+---
 
-The goal is to identify brute-force attacks, password spraying, and unusual login patterns.
+##  Tools Used
+- Splunk Enterprise (SIEM Platform)
+- OpenSSH authentication logs
+- SPL (Search Processing Language)
 
+---
 
+##  Dataset
+Sample SSH authentication logs from LogHub:
+https://github.com/logpai/loghub/tree/master/SSH](https://github.com/logpai/loghub/blob/master/OpenSSH/OpenSSH_2k.log
 
-\---
+---
 
+##  Key Detections
 
+### 1. Basic Failed Login Detection
+```spl
+index=auth_logs "Failed password"
 
-##### \## Tools Used
-
-\- Splunk Enterprise (SIEM Platform)
-
-\- OpenSSH authentication logs
-
-
-
-\---
-
-
-
-##### \## Dataset
-
-Sample SSH logs from:
-
-https://github.com/logpai/loghub/tree/master/SSH
-
-
-
-\---
-
-
-
-##### \## Key Detections
-
-
-
-###### 1\. Failed Login Detection
-
-index=auth\_logs "Failed password"
-
-
-
-###### 2\. Brute Force Detection
-
-index=auth\_logs "Failed password"
-
-| rex "from (?<src\_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)"
-
-| stats count by src\_ip
-
+### 2. Brute Force Detection (by IP)
+index=auth_logs "Failed password"
+| rex "from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| stats count by src_ip
 | where count > 5
-
 | sort - count
 
-
-
-###### 3\. Targeted User Analysis
-
-index=auth\_logs "Failed password"
-
-| rex "for (invalid user )?(?<user>\\w+)"
-
+### 3. Targeted User Analysis
+index=auth_logs "Failed password"
+| rex "for (invalid user )?(?<user>\w+)"
 | stats count by user
-
 | sort - count
 
+### 4. Attack Trend Over Time
+index=auth_logs "Failed password"
+| timechart span=1h count
 
-
-###### \#Dashboards
-
+##Dashboards Created
 Top attacking IP addresses
-
-Failed login trends over time
-
+Failed login trend over time
 Most targeted user accounts
 
-Alerting
+##Alerting
+A scheduled alert was created in Splunk to detect IP addresses generating multiple failed login attempts, indicating possible brute-force attacks.
 
+##Screenshots
+Screenshots of Splunk searches, dashboards, and alerts are available in the screenshots/ folder.
 
-
-An alert was configured to detect IPs generating multiple failed login attempts, indicating possible brute-force attacks.
-
-
-
-##### Key Skills Learned
-
+##Key Learnings
 SIEM log analysis
-
-SPL querying
-
-Field extraction using regex
-
-Alert creation
-
+SPL querying and filtering
+Regex-based field extraction
+Security alert creation
 Dashboard visualization
+Basic SOC workflow understanding
 
-Security investigation workflow
+##Conclusion
+This project demonstrates a real-world security monitoring scenario using Splunk Enterprise. It simulates how SOC analysts detect and respond to authentication-based attacks using log analysis and alerting.
+📌 Author
 
-
-
-##### Conclusion
-
-This project simulates real-world SOC monitoring scenarios and demonstrates foundational skills in security monitoring using Splunk.
-
+Student cybersecurity project for SOC analyst learning path.
