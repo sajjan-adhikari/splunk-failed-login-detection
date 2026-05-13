@@ -36,23 +36,28 @@ https://github.com/logpai/loghub/tree/master/SSH](https://github.com/logpai/logh
 ```spl
 index=auth_logs "Failed password"
 
-### 2. Brute Force Detection (by IP)
 ```
+### 2. Brute Force Detection (by IP)
+```spl
 index=auth_logs "Failed password"
 | rex "from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
 | stats count by src_ip
 | where count > 5
 | sort - count
-
+```
 ### 3. Targeted User Analysis
+```spl
 index=auth_logs "Failed password"
 | rex "for (invalid user )?(?<user>\w+)"
 | stats count by user
 | sort - count
+```
 
 ### 4. Attack Trend Over Time
-``index=auth_logs "Failed password"
+```spl
+index=auth_logs "Failed password"
 | timechart span=1h count
+```
 
 ##Dashboards Created
 Top attacking IP addresses
