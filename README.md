@@ -37,6 +37,7 @@ https://github.com/logpai/loghub/tree/master/SSH](https://github.com/logpai/logh
 index=auth_logs "Failed password"
 
 ### 2. Brute Force Detection (by IP)
+```
 index=auth_logs "Failed password"
 | rex "from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
 | stats count by src_ip
@@ -50,7 +51,7 @@ index=auth_logs "Failed password"
 | sort - count
 
 ### 4. Attack Trend Over Time
-index=auth_logs "Failed password"
+``index=auth_logs "Failed password"
 | timechart span=1h count
 
 ##Dashboards Created
@@ -74,6 +75,6 @@ Basic SOC workflow understanding
 
 ##Conclusion
 This project demonstrates a real-world security monitoring scenario using Splunk Enterprise. It simulates how SOC analysts detect and respond to authentication-based attacks using log analysis and alerting.
-📌 Author
 
+##Author
 Student cybersecurity project for SOC analyst learning path.
