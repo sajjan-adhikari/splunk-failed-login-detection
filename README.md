@@ -58,17 +58,22 @@ index=auth_logs "Failed password"
 index=auth_logs "Failed password"
 | timechart span=1h count
 ```
+---
 
 ##Dashboards Created
 Top attacking IP addresses
 Failed login trend over time
 Most targeted user accounts
+---
 
 ##Alerting
 A scheduled alert was created in Splunk to detect IP addresses generating multiple failed login attempts, indicating possible brute-force attacks.
+---
 
 ##Screenshots
 Screenshots of Splunk searches, dashboards, and alerts are available in the screenshots/ folder.
+
+---
 
 ##Key Learnings
 SIEM log analysis
@@ -78,6 +83,7 @@ Security alert creation
 Dashboard visualization
 Basic SOC workflow understanding
 
+---
 ##Conclusion
 This project demonstrates a real-world security monitoring scenario using Splunk Enterprise. It simulates how SOC analysts detect and respond to authentication-based attacks using log analysis and alerting.
 
