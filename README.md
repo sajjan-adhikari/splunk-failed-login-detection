@@ -92,5 +92,5 @@ This project demonstrates a real-world security monitoring scenario using Splunk
 
 ---
 
-##Author
+## Author
 Student cybersecurity project for SOC analyst learning path.
