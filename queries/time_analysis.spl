@@ -1,0 +1,2 @@
+index=auth_logs "Failed password"
+| timechart span=1h count

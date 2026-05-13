@@ -1,0 +1,4 @@
+index=auth_logs "Failed password"
+| rex "for (invalid user )?(?<user>\w+)"
+| stats count by user
+| sort - count

@@ -1,0 +1,5 @@
+index=auth_logs "Failed password"
+| rex "from (?<src_ip>\d+\.\d+\.\d+\.\d+)"
+| stats count by src_ip
+| where count > 5
+| sort - count
